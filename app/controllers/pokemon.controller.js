@@ -10,7 +10,7 @@ exports.create = (req, res) => {
     }
 
     // Create a Pokemon
-    const pokemon = new Pokemon({
+    /*const pokemon = new Pokemon({
         Name : req.body.name,
         Type_1 : req.body.typeone,
         Type_2 : req.body.typetwo,
@@ -23,10 +23,10 @@ exports.create = (req, res) => {
         Speed : req.body.speed,
         Generation : req.body.generation,
         Legendary : req.body.legendary,
-    });
-
+    });*/
+    
     // Save Pokemon in the database
-    Pokemon.create(pokemon, (err, data) => {
+    Pokemon.create(req.body, (err, data) => {
         if (err)
             res.status(500).send({
                 message:
@@ -92,25 +92,35 @@ exports.update = (req, res) => {
             message: "Content can not be empty!"
         });
     }
+    /*
+    console.log(req.body);
 
     const pokemon = new Pokemon({
-        Name : req.body.name,
-        Type_1 : req.body.typeone,
-        Type_2 : req.body.typetwo,
-        Total : req.body.total,
-        HP : req.body.hp,
-        Attack : req.body.attack,
-        Defense : req.body.defense,
-        Sp_Atk : req.body.spattack,
-        Sp_Def : req.body.spdef,
-        Speed : req.body.speed,
-        Generation : req.body.generation,
-        Legendary : req.body.legendary,
+        Name : req.body.Name,
+        Type_1 : req.body.Type_1,
+        Type_2 : req.body.Type_2,
+        Total : req.body.Total,
+        HP : req.body.HP,
+        Attack : req.body.Attack,
+        Defense : req.body.Defense,
+        Sp_Atk : req.body.Sp_Atk,
+        Sp_Def : req.body.Sp_Def,
+        Speed : req.body.Speed,
+        Generation : req.body.Generation,
+        Legendary : req.body.Legendary,
     });
+
+    let fieldsToUpdate = new Array();
+    for (const key of Object.keys(req.body)) {
+        console.log(key);
+        fieldsToUpdate[key] = req.body[key];
+    }
+
+    console.log(fieldsToUpdate);*/
 
     Pokemon.updateById(
         req.params.pokemonId,
-        pokemon,
+        req.body,
         (err, data) => {
             if (err) {
                 if (err.kind === "not_found") {

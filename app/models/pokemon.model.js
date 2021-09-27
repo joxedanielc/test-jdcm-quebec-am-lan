@@ -76,10 +76,29 @@ Pokemon.getAll = (options, result) => {
 };
 
 Pokemon.updateById = (id, pokemon, result) => {
-    sql.query(
+    /*sql.query(
         `UPDATE pokemon SET Name = ${pokemon.Name}, Type_1 = ${pokemon.Type_1}, Type_2 = ${pokemon.Type_2}, Total = ${pokemon.Total}, HP = ${pokemon.HP}, Attack = ${pokemon.Attack},
         Defense = ${pokemon.Defense}, Sp_Atk = ${pokemon.Sp_Atk}, Sp_Def = ${pokemon.Sp_Def}, Speed = ${pokemon.Speed}, Generation = ${pokemon.Generation}, Legendary = ${pokemon.Legendary}
         WHERE id = ${id}`,
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+
+            if (res.affectedRows == 0) {
+                // not found pokemon with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            console.log("updated pokemon: ", { id: id, ...pokemon });
+            result(null, { id: id, ...pokemon });
+        }
+    );*/
+    sql.query(
+        `UPDATE pokemon SET ? WHERE id = ${id}`, pokemon,
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
