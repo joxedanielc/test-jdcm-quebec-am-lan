@@ -1,30 +1,26 @@
 const Pokemon = require("../models/pokemon.model.js");
 
-// Create and Save a new Pokemon
+//Create a new Pokemon
 exports.create = (req, res) => {
     // Validate request
     if (!req.body) {
-        res.status(400).send({
+        return res.status(400).send({
             message: "Content can not be empty!"
         });
     }
 
-    // Create a Pokemon
-    /*const pokemon = new Pokemon({
-        Name : req.body.name,
-        Type_1 : req.body.typeone,
-        Type_2 : req.body.typetwo,
-        Total : req.body.total,
-        HP : req.body.hp,
-        Attack : req.body.attack,
-        Defense : req.body.defense,
-        Sp_Atk : req.body.spattack,
-        Sp_Def : req.body.spdef,
-        Speed : req.body.speed,
-        Generation : req.body.generation,
-        Legendary : req.body.legendary,
-    });*/
-    
+    if(!req.body.Name || req.body.Name == "") {
+        return res.status(400).send({
+            message: "Pokemon's name is required!"
+        });
+    }
+
+    if(!req.body.Type_1 || req.body.Type_1 == "") {
+        return res.status(400).send({
+            message: "Pokemon's Type One is required!"
+        });
+    }
+
     // Save Pokemon in the database
     Pokemon.create(req.body, (err, data) => {
         if (err)
@@ -42,8 +38,8 @@ exports.findAll = (req, res) => {
     let skip = req.query.skip;
     let limit = req.query.limit;
 
-    console.log({skip});
-    console.log({limit});
+    //console.log({skip});
+    //console.log({limit});
 
     let options = {}
 
@@ -55,7 +51,7 @@ exports.findAll = (req, res) => {
         options.limit = limit;
     }
 
-    console.log(options);
+    //console.log(options);
 
     Pokemon.getAll(options, (err, data) => {
         if (err)
@@ -92,32 +88,7 @@ exports.update = (req, res) => {
             message: "Content can not be empty!"
         });
     }
-    /*
-    console.log(req.body);
-
-    const pokemon = new Pokemon({
-        Name : req.body.Name,
-        Type_1 : req.body.Type_1,
-        Type_2 : req.body.Type_2,
-        Total : req.body.Total,
-        HP : req.body.HP,
-        Attack : req.body.Attack,
-        Defense : req.body.Defense,
-        Sp_Atk : req.body.Sp_Atk,
-        Sp_Def : req.body.Sp_Def,
-        Speed : req.body.Speed,
-        Generation : req.body.Generation,
-        Legendary : req.body.Legendary,
-    });
-
-    let fieldsToUpdate = new Array();
-    for (const key of Object.keys(req.body)) {
-        console.log(key);
-        fieldsToUpdate[key] = req.body[key];
-    }
-
-    console.log(fieldsToUpdate);*/
-
+    
     Pokemon.updateById(
         req.params.pokemonId,
         req.body,

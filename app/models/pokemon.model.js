@@ -25,7 +25,7 @@ Pokemon.create = (NewPokemon, result) => {
             return;
         }
 
-        console.log("created pokemon: ", { id: res.insertId });
+        //console.log("created pokemon: ", { id: res.insertId });
         result(null, { id: res.insertId });
     });
 };
@@ -61,16 +61,16 @@ Pokemon.getAll = (options, result) => {
         mainQuery = `${mainQuery} OFFSET ${options.skip}`;
     }
 
-    console.log({mainQuery});
+    //console.log({mainQuery});
 
     sql.query(mainQuery, (err, res) => {
         if (err) {
-            console.log("error: ", err);
+            //console.log("error: ", err);
             result(null, err);
             return;
         }
 
-        console.log("pokemon: ", res);
+        //console.log("pokemon: ", res);
         result(null, res);
     });
 };
@@ -101,7 +101,7 @@ Pokemon.updateById = (id, pokemon, result) => {
         `UPDATE pokemon SET ? WHERE id = ${id}`, pokemon,
         (err, res) => {
             if (err) {
-                console.log("error: ", err);
+                //console.log("error: ", err);
                 result(null, err);
                 return;
             }
@@ -112,7 +112,7 @@ Pokemon.updateById = (id, pokemon, result) => {
                 return;
             }
 
-            console.log("updated pokemon: ", { id: id, ...pokemon });
+            //console.log("updated pokemon: ", { id: id, ...pokemon });
             result(null, { id: id, ...pokemon });
         }
     );

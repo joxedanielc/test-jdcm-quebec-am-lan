@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const pokemon = require("./app/controllers/pokemon.controller.js");
+const pokemonRouter = require("./app/routes/pokemon.routes.js");
 
 const app = express();
 
@@ -12,21 +13,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to JD's application." });
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000.");
-});
+app.use(pokemonRouter);
 
-// Create a new Pokemon
-app.post("/pokemon", pokemon.create);
-  
-// Retrieve all Pokemon
-app.get("/pokemon", pokemon.findAll);
-
-// Retrieve a single Pokemon with pokemonId
-app.get("/pokemon/:pokemonId", pokemon.findOne);
-
-// Update a Pokemon with pokemonId
-app.put("/pokemon/:pokemonId", pokemon.update);
-
-// Delete a Pokemon with pokemonId
-app.delete("/pokemon/:pokemonId", pokemon.delete);
+module.exports = app
