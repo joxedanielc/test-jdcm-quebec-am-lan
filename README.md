@@ -24,4 +24,4 @@ node index.js
 
 ### Note
 
-You import the file **JDCM_TEST.postman_collection** in postman to test the API. 
+You can import the file **JDCM_TEST.postman_collection** in postman to test the API. 
